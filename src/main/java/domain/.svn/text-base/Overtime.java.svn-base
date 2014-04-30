@@ -1,0 +1,182 @@
+package domain;
+
+import domain.status.WaitingForApproval;
+import entities.annotations.Editor;
+import entities.annotations.ParameterDescriptor;
+import entities.annotations.PropertyDescriptor;
+import entities.annotations.Transaction;
+import entities.annotations.View;
+import entities.annotations.Views;
+import entities.descriptor.PropertyType;
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
+
+@Entity
+@Views({
+    @View(name = "RequestOvertime",
+          title = "Request Overtime",
+          members = "[#employee;#beginning;#ending;#description;#Ctrl.DAO.savePageAndRefresh()]",
+          namedQuery = "Select new domain.Overtime()"),
+    @View(name = "MyRequestOvertime",
+          title = "Requests Overtime", rows = 5,
+          members = "employee,beginning,ending,status",
+          namedQuery = "Select ot From Overtime ot Order by beginning desc",
+          template="@PAGER"),
+    @View(name = "AuthorizeOvertime",
+          title = "Authorize Overtime",
+          members = "[employee:2;beginning,ending;#description,remark;[approve(),reject()]]",
+          namedQuery = "Select ot from Overtime ot,WaitingForApproval st where ot.status = st"),
+    @View(name = "AuthorizePaymentOfOvertime",
+          title = "Authorize Payment of Overtime",
+          members = "Request Overtime[[employee;beginning;ending],description],Action[pay();revert();reject()]",
+          namedQuery = "Select ot from Overtime ot,WaitingForPayment st where ot.status = st")})
+public class Overtime implements Serializable {
+
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @NotNull
+    @ManyToOne
+    private Employee employee;
+
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date beginning;
+
+    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ending;
+
+    @Lob
+    @NotEmpty
+    private String description;
+
+    @Lob
+    private String remark;
+
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Status status = new WaitingForApproval(this);
+
+    // <editor-fold defaultstate="collapsed" desc="Get´s e Set´s">
+    public Date getBeginning() {
+        return beginning;
+    }
+
+    public void setBeginning(Date beginning) {
+        this.beginning = beginning;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Date getEnding() {
+        return ending;
+    }
+
+    public void setEnding(Date ending) {
+        this.ending = ending;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+        this.status.setOvertime(this);
+    }// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Methods">
+    @Transaction
+    public void approve() throws StatusException {
+        this.status.setOvertime(this);
+        status.approve();
+    }
+
+    @Transaction
+    public void reject() throws StatusException {
+        this.status.setOvertime(this);
+        status.reject();
+    }
+
+    @Transaction
+    public void pay() throws StatusException {
+        this.status.setOvertime(this);
+        status.pay();
+    }
+
+    @Transaction
+    public void revert(
+            @Editor(propertyType = PropertyType.MEMO)
+            @ParameterDescriptor(displayName = "Remark") String remark)
+            throws StatusException {
+        this.status.setOvertime(this);
+        status.revert(remark);
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="equals e hashcode">
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Overtime other = (Overtime) obj;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + (this.id != null ? this.id.hashCode() : 0);
+        return hash;
+    }
+    // </editor-fold>
+}

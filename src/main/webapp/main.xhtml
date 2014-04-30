@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:e="http://entities.br"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <body>
+        <ui:composition template="./template.xhtml">
+            <ui:define name="subheader">
+                <h:form>
+                    <rich:toolBar>
+                        
+                        <rich:dropDownMenu value="Entrar" rendered='#{empty context.currentUser().hasRoles("Administrador","Supervisor","Bolsista","Coordenador","Secretario","Super")}'>
+
+                            <rich:menuItem rendered="#{empty context.currentUser()}">
+                                <e:go label="Login" viewname="security.Usuario@Login" page="main.jsf"/>
+                            </rich:menuItem>
+
+                        </rich:dropDownMenu>
+
+                        <rich:dropDownMenu value="Cadastros" rendered='#{context.currentUser().hasRoles("Administrador","Supervisor","Bolsista","Coordenador","Secretario","Super")}'>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Coordenador","Administrador","Super")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Cadastro de Usuários" />                                    
+                                    <f:param name="view" value="security.Usuario@CadastroDeUsuarios" />
+                                </h:outputLink>
+                            </rich:menuItem>
+                          
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Administrador", "Coordenador","Secretario","Bolsista")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Inscrição de Pacientes" />                                    
+                                    <f:param name="view" value="domain.Paciente@Pacientes" />
+                                </h:outputLink>
+                            </rich:menuItem>
+                            
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Coordenador","Administrador","Supervisor")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Cadastro de Prioridade" />                                    
+                                    <f:param name="view" value="domain.Paciente@DefinirPrioridade" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                        </rich:dropDownMenu>
+
+                        <rich:dropDownMenu value="Atendimentos" rendered='#{context.currentUser().hasRoles("Administrador","Coordenador","Estagiario")}'>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Coordenador","Administrador")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Aguardando Atendimento" />                                    
+                                    <f:param name="view" value="domain.Paciente@AguardandoAtendimentoCoordenador" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Estagiario")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Aguardando Atendimento" />                                    
+                                    <f:param name="view" value="domain.Paciente@AguardandoAtendimentoEstagiario" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                        </rich:dropDownMenu>
+
+                        <rich:dropDownMenu value="Encaminhamentos" rendered='#{context.currentUser().hasRoles("Administrador","Coordenador","Estagiario","Supervisor")}'>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Coordenador","Estagiario","Administrador")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Aprovar Encaminhamentos" />                                    
+                                    <f:param name="view" value="domain.Paciente@AprovarEncaminhamento" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Coordenador","Administrador","Estagiario","Supervisor")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Arquivo Morto" />                                    
+                                    <f:param name="view" value="domain.Paciente@ArquivoMorto" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Coordenador","Administrador")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Histórico" />                                    
+                                    <f:param name="view" value="domain.Historico@Historico" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                        </rich:dropDownMenu>
+
+                        <rich:dropDownMenu value="Consultas" rendered='#{context.currentUser().hasRoles("Administrador","Bolsista","Coordenador","Estagiario","Secretario","Supervisor")}'>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Administrador","Coordenador","Supervisor")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Listar Estagiários" />                                    
+                                    <f:param name="view" value="domain.Estagiario@Listar Estagiarios" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Coordenador","Administrador")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Pacientes em Atendimento" />                                    
+                                    <f:param name="view" value="domain.Paciente@MeusPacientesCoordenador" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Estagiario")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Pacientes Em Atendimento" />                                    
+                                    <f:param name="view" value="domain.Paciente@MeusPacientesEstagiario" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Coordenador","Administrador","Secretario","Bolsista")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Status do Paciente" />                                    
+                                    <f:param name="view" value="domain.Paciente@status" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                        </rich:dropDownMenu>
+
+                        <rich:dropDownMenu value="Manter Usuários" rendered='#{context.currentUser().hasRoles("Administrador","Bolsista","Coordenador","Secretario")}'>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Administrador", "Coordenador","Secretario")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Manter Bolsista" />                                    
+                                    <f:param name="view" value="domain.Bolsista@Manter Bolsista" />
+                                </h:outputLink>
+                            </rich:menuItem>
+                            
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Administrador", "Coordenador")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Manter Coordenador" />                                    
+                                    <f:param name="view" value="domain.Coordenador@Manter Coordenador" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Administrador", "Coordenador","Bolsista","Secretario")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Manter Estagiário" />                                    
+                                    <f:param name="view" value="domain.Estagiario@Manter Estagiario" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Administrador", "Coordenador")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Manter Secretário" />                                    
+                                    <f:param name="view" value="domain.Secretario@Manter Secretario" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Administrador", "Coordenador","Bolsista","Secretario")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Manter Supervisor" />                                    
+                                    <f:param name="view" value="domain.Supervisor@Manter Supervisor" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                        </rich:dropDownMenu>
+
+                        <rich:dropDownMenu value="Triagem" rendered='#{context.currentUser().hasRoles("Administrador","Coordenador","Estagiario")}'>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Administrador", "Coordenador")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Selecionar para Triagem" />
+                                    <f:param name="view" value="domain.Paciente@SelecionarTriagem" />
+                                </h:outputLink>
+                            </rich:menuItem>
+                            
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Administrador", "Coordenador")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Selecionados para Triagem" />
+                                    <f:param name="view" value="domain.Paciente@SelecionadosTriagem" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                            <rich:menuItem rendered='#{context.currentUser().hasRoles("Estagiario")}'>
+                                <h:outputLink value="main.jsf">
+                                    <h:outputText value="Selecionar para Triagem" />                                    
+                                    <f:param name="view" value="domain.Paciente@SelecionarTriagemEstagiario" />
+                                </h:outputLink>
+                            </rich:menuItem>
+
+                        </rich:dropDownMenu>
+
+                        <rich:dropDownMenu value="Sair" rendered='#{ not empty context.currentUser().hasRoles("Administrador","Bolsista","Coordenador","Estagiario","Secretario","Super")}'>
+
+                            <rich:menuItem rendered="#{not empty context.currentUser()}">
+                                <e:go label="Logout" viewname="security.Usuario@Logout" page="main.jsf"/>
+                            </rich:menuItem>
+
+                        </rich:dropDownMenu>
+
+                        <rich:toolBarGroup location="right" rendered="#{not empty context.currentUser()}">
+                            <h:outputText value="Usuário: #{context.currentUser().userName()}" />
+                        </rich:toolBarGroup> 
+
+                    </rich:toolBar>
+                </h:form>
+            </ui:define>
+
+            <ui:define name="sidebar">
+                <h:panelGroup>
+                    <ul>
+                        <li>
+                            <h2>#{i18n['menu.label.main']}</h2>
+                            <ul class="blocklist">
+                                <e:liMenuItems/>
+                            </ul>
+                        </li>
+                    </ul>
+                </h:panelGroup>
+            </ui:define>
+
+            <ui:define name="content">
+                <h:panelGroup rendered="#{empty autoEntityBackBean.entity}">
+                    <br/><br/>
+                    <div class="post">
+                        <center>
+                            <h1 class="title">Bem-vindo ao</h1>
+                            <p><b>Sistema da Clinica de Psicologia da UFC</b></p>
+                            <h:graphicImage url="img/logo_ufc.png"/>
+                            <div class="entry">
+                            </div>
+                        </center>
+                    </div>
+                    <br/><br/>
+                </h:panelGroup>
+
+                <e:view />
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

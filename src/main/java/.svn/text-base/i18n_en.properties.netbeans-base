@@ -1,0 +1,131 @@
+# Aplica\u00e7\u00e3o
+enterprise.contact=marciusbrandao@gmail.com
+application.name=Entities Blank
+application.version=3.7
+application.footer=
+application.localeEn=English
+application.localePtBr=Portugu\u00eas Brasil
+application.errorOccurred=An Error Occurred
+application.status=Wait....
+application.copyRight=
+
+# Bot\u00f5es
+button.ok=OK
+button.yes=Sim
+button.no=N\u00e3o
+button.new=Novo
+button.save=Salvar
+button.insert=Incluir
+button.edit=Alterar
+button.delete=Excluir
+button.close=Fechar
+button.back=Voltar
+button.cancel=Cancelar
+button.open=Abrir
+button.find=Pesquisar
+button.upload=Anexar
+
+# Actions
+entities.action.ok=Confirm
+entities.action.cancel=Cancel
+
+actionNew.hint=New
+actionDelete.hint=
+actionDelete.messageErro=
+actionDelete.messageSucess=
+
+# Menu
+menu.label.main=Menu
+menu.label.help=Help
+menu.label.setup=Setup
+
+#Tratamento do Exce\u00e7\u00f5es
+validator.notNull=Campo com preenchimento obrigat\u00f3rio
+validator.length=Preencher o campo no m\u00e1ximo {max} caracteres e {min} no m\u00ednimo
+validator.min=Campo com valor < {min}
+validator.max=Campo com valor > {max}
+validator.range=Campo deve estar no intervalo {min} e {max}
+validator.email=e-mail inv\u00e1lido
+validator.notEmpty=Campo com preenchimento obrigat\u00f3rio
+
+#Tradu\u00e7\u00e3o das mensagens do JSF
+javax.faces.component.UIInput.CONVERSION        = Erro de convers\u00e3o
+javax.faces.component.UIInput.CONVERSION_detail = Ocorreu um erro de convers\u00e3o.
+javax.faces.component.UIInput.REQUIRED        = Erro de valida\u00e7\u00e3o
+javax.faces.component.UIInput.REQUIRED_detail = {0} : Este campo \u00e9 de preenchimento obrigat\u00f3rio!
+
+javax.faces.component.UISelectOne.INVALID        = Erro de valida\u00e7\u00e3o
+javax.faces.component.UISelectOne.INVALID_detail = Este campo n\u00e3o \u00e9 uma op\u00e7\u00e3o v\u00e1lida.
+
+javax.faces.component.UISelectMany.INVALID        = Erro de valida\u00e7\u00e3o
+javax.faces.component.UISelectMany.INVALID_detail = Este campo n\u00e3o \u00e9 uma op\u00e7\u00e3o v\u00e1lida.
+
+javax.faces.validator.NOT_IN_RANGE        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.NOT_IN_RANGE_detail = {2} O atributo especificador n\u00e3o est\u00e1 entre os valores esperados {0} e {1}.
+
+javax.faces.validator.DoubleRangeValidator.LIMIT        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.DoubleRangeValidator.LIMIT_detail = O atributo especificado n\u00e3o pode ser convertido para o tipo apropriado.
+javax.faces.validator.DoubleRangeValidator.MAXIMUM        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.DoubleRangeValidator.MAXIMUM_detail = {1} Este campo \u00e9 maior que o m\u00e1ximo permitido de {0}.
+javax.faces.validator.DoubleRangeValidator.MINIMUM        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.DoubleRangeValidator.MINIMUM_detail = {1} Este campo \u00e9 menor que o m\u00ednimo permitido de {0}.
+javax.faces.validator.DoubleRangeValidator.TYPE        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.DoubleRangeValidator.TYPE_detail = {0} Este campo n\u00e3o \u00e9 do tipo correto.
+
+javax.faces.validator.LengthValidator.LIMIT        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.LengthValidator.LIMIT_detail = O atributo especificado n\u00e3o pode ser convertido para o tipo apropriado.
+javax.faces.validator.LengthValidator.MAXIMUM        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.LengthValidator.MAXIMUM_detail = {1} Este campo \u00e9 mais longo do que o m\u00e1ximo permitido de {0} caracteres.
+javax.faces.validator.LengthValidator.MINIMUM        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.LengthValidator.MINIMUM_detail = {1} Este campo \u00e9 mais curto do que o m\u00ednimo permitido de {0} caracteres.
+
+javax.faces.validator.LongRangeValidator.LIMIT        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.LongRangeValidator.LIMIT_detail = O atributo especificado n\u00e3o pode ser convertido para o tipo apropriado.
+javax.faces.validator.LongRangeValidator.MAXIMUM        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.LongRangeValidator.MAXIMUM_detail = {1} Este campo \u00e9 maior que o m\u00e1ximo permitido de {0}.
+javax.faces.validator.LongRangeValidator.MINIMUM        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.LongRangeValidator.MINIMUM_detail = {1} Este campo \u00e9 menor que o m\u00ednimo permitido de {0}.
+javax.faces.validator.LongRangeValidator.TYPE        = Erro de valida\u00e7\u00e3o
+javax.faces.validator.LongRangeValidator.TYPE_detail = {0} Este campo n\u00e3o \u00e9 do tipo correto.
+
+# additional messages (not specified, but supported by myfaces API converters)
+javax.faces.convert.BigDecimalConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.BigDecimalConverter.CONVERSION_detail = {0} Este campo especificado n\u00e3o \u00e9 um n\u00famero v\u00e1lido.
+javax.faces.convert.BigIntegerConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.BigIntegerConverter.CONVERSION_detail = {0} Este campo especificado n\u00e3o \u00e9 um n\u00famero v\u00e1lido.
+
+javax.faces.convert.BooleanConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.BooleanConverter.CONVERSION_detail = {1} Imposs\u00edvel converter '{0}' para Boolean.
+
+javax.faces.convert.ByteConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.ByteConverter.CONVERSION_detail = {1} Imposs\u00edvel converter '{0}' para Byte.
+
+javax.faces.convert.CharacterConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.CharacterConverter.CONVERSION_detail = N\u00e3o foi poss\u00edvel converter '{0}' para caracter.
+
+javax.faces.convert.DateTimeConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.DateTimeConverter.CONVERSION_detail = {1} Este campo especificado n\u00e3o \u00e9 uma data/hora v\u00e1lida.
+
+javax.faces.convert.DoubleConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.DoubleConverter.CONVERSION_detail = {0} Este campo especificado n\u00e3o \u00e9 um n\u00famero v\u00e1lido.
+
+javax.faces.convert.FloatConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.FloatConverter.CONVERSION_detail = {0} Este campo especificado n\u00e3o \u00e9 um n\u00famero v\u00e1lido.
+
+javax.faces.convert.IntegerConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.IntegerConverter.CONVERSION_detail = {0} Este campo especificado n\u00e3o \u00e9 um n\u00famero v\u00e1lido.
+
+javax.faces.convert.LongConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.LongConverter.CONVERSION_detail = {0} Este campo especificado n\u00e3o \u00e9 um n\u00famero v\u00e1lido.
+
+javax.faces.convert.NumberConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.NumberConverter.CONVERSION_detail = {0} Este campo especificado n\u00e3o \u00e9 um n\u00famero v\u00e1lido.
+
+javax.faces.convert.ShortConverter.CONVERSION        = Erro de convers\u00e3o
+javax.faces.convert.ShortConverter.CONVERSION_detail = {0} Este campo especificado n\u00e3o \u00e9 um n\u00famero v\u00e1lido.
+
+#Tradu\u00e7\u00e3o das mensagens do JBoss Seam
+org.jboss.seam.loginSuccessful=Seja benvindo,{0}
+org.jboss.seam.loginFailed=Usu\u00e1rio e/ou senha inv\u00e1lido(s)
+org.jboss.seam.NotLoggedIn=Voc\u00ea n\u00e3o est\u00e1 autenticado no sistema!
+org.jboss.seam.AlreadyLoggedIn=Voc\u00ea j\u00e1 est\u00e1 autenticado no sistema!

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/581/oopsla/web/WEB-INF
+END
+faces-config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/581/oopsla/web/WEB-INF/faces-config.xml
+END
+sun-web.xml
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/581/oopsla/web/WEB-INF/sun-web.xml
+END
+web.xml
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/583/oopsla/web/WEB-INF/web.xml
+END

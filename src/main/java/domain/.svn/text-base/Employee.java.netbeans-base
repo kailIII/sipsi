@@ -1,0 +1,237 @@
+package domain;
+
+import entities.Context;
+import entities.CurrentUser;
+import entities.Repository;
+import entities.annotations.ActionDescriptor;
+import entities.annotations.Editor;
+import entities.annotations.EntityDescriptor;
+import entities.annotations.PropertyDescriptor;
+import entities.annotations.View;
+import entities.annotations.Views;
+import entities.dao.DAOConstraintException;
+import entities.dao.DAOException;
+import entities.dao.DAOValidationException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
+
+@Entity
+@NamedQueries({
+    @NamedQuery(name = "authentication",
+                query = ""
+    + "Select distinct u"
+    + "  From Employee u"
+    + "  left join fetch u.roles"
+    + " Where u.username = :username "
+    + "   and u.password = :password "),
+    @NamedQuery(name = "UsuarioCorrente",
+                query = ""
+    + "Select u"
+    + "  From Employee u"
+    + " Where u = :usuario")
+})
+@Views({
+    /**
+     * View de Login
+     */
+    @View(name = "Login",
+          title = "Login",
+          members = "[#username;#password;login()]",
+          namedQuery = "Select new domain.Employee()"),
+    /**
+     * View de Login
+     */
+//    @View(name = "Logout",
+//          title = "Logout",
+//          members = "[*nome;logout()]",
+//          namedQuery = "UsuarioCorrente",
+//          params = {
+//        @Param(name = "usuario", value = "#{context.currentUser()}")},
+//          roles = "Admin,Employee,Supervisor,RH"),
+    /**
+     * Cadastro de Usuarios
+     */
+    @View(name = "Employees",
+          title = "Employees",
+          members = "Employee[name;username;password;roles]",
+          template = "@CRUD_PAGE"//todo
+          /*roles = "Admin,RH"*/)
+})
+@EntityDescriptor(displayName = "Usuário",
+                  pluralDisplayName = "Usuários",
+                  roles = "Admin")
+public class Employee implements Serializable, CurrentUser {
+
+    //<editor-fold defaultstate="collapsed" desc="others">
+    public static final String REDIRECT_TO_HOME = "redirect:main";
+
+    public static final String REDIRECT_TO_LOGIN = "redirect:main.jsf?view=" + Employee.class.getName() + "@Login";
+
+    public static final String REDIRECT_TO_USERS = "redirect:main.jsf?view=" + Employee.class.getName() + "@CadastroDeUsuarios";
+    //</editor-fold>
+
+    public enum Role {
+
+        Admin, Employee, Supervisor, RH
+    }
+
+    @Id
+    @Column(length = 32)
+    private String username;
+
+    @NotEmpty
+    @Column(length = 50)
+    private String name;
+
+    @Column(length = 32)
+    @Type(type = "entities.dao.hibernate.PasswordType")
+    @PropertyDescriptor(secret = true, displayWidth = 25)
+    @NotEmpty
+    private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @Cascade(value = {CascadeType.ALL})
+    @Editor(inputComponentName = "org.richfaces.component.html.HtmlPickList",
+            outputComponentName = "org.richfaces.component.html.HtmlPickList")
+    private List<Role> roles = new ArrayList<Role>();
+
+    //<editor-fold defaultstate="collapsed" desc="gets e sets">
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }//</editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Implentação de CurrentUser">
+    @Override
+    public String userName() {
+        return getName();
+    }
+
+    @Override
+    public boolean hasRoles(String... roles) {
+        for (String role : roles) {
+            for (Role papel : getRoles()) {
+                if (papel.name().equals(role)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }// </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Autorização & Autenticação">
+    @ActionDescriptor(hidden = true, value = "Entrar", displayName = "Entrar")
+    public String login() throws DAOException, DAOValidationException, DAOConstraintException {
+        if (username.equals("Admin") && password.equals("Admin")) {
+
+            CurrentUser currentUser = new Employee() {
+
+                @Override
+                public String userName() {
+                    return "Admin";
+                }
+
+                @Override
+                public boolean hasRoles(String... roles) {
+                    for (String role : roles) {
+                        if (role.equals("Admin")) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            };
+            Context.setCurrentUser(currentUser);
+            return REDIRECT_TO_USERS;
+        } else {
+            Employee login = null;
+            List<Employee> usuarios = Repository.query("authentication", username, password);
+            if (usuarios.size() == 1) {
+                login = usuarios.get(0);
+                Context.setCurrentUser(login);
+            }
+        }
+        return REDIRECT_TO_HOME;
+    }
+
+    @ActionDescriptor(hidden = true)
+    public static Employee getCurrentUser() {
+        return (Employee) Context.getCurrentUser();
+    }
+
+    @ActionDescriptor(value = "Sair", methodRendered = "#{not empty context.currentUser()}")
+    static public String logout() {
+        Context.clear();
+        return REDIRECT_TO_LOGIN;
+    }// </editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Equals, Hashcode e toString()">
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Employee other = (Employee) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + (this.name != null ? this.name.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }//</editor-fold>
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/Clinica1.5">
+  <Resource auth="Container" driverClassName="org.postgresql.Driver" maxActive="2" maxIdle="1" maxWait="-1" name="jdbc/datasource" password="postgres" type="javax.sql.DataSource" url="jdbc:postgresql://localhost:5432/clinica" username="postgres"/>
+  <!--<Resource auth="Container" 
+            description="JavaDB for Entities Blank" 
+            driverClassName="org.apache.derby.jdbc.ClientDriver" 
+            maxActive="20" maxIdle="10" maxWait="-1" 
+            name="jdbc/datasource" password="clinica" 
+            type="javax.sql.DataSource" 
+            url="jdbc:derby://localhost:1527/clinica" 
+            username="clinica"/>-->
+</Context>
