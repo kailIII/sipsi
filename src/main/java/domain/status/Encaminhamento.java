@@ -16,13 +16,13 @@ import domain.StatusException;
  * @author maria
  */
 @Entity
-@DiscriminatorValue("Emcaminhamento")
+@DiscriminatorValue("Encaminhamento")
 @EntityDescriptor(hidden = true)
 public class Encaminhamento extends Status {
 
     public Encaminhamento() {
         this.setId(3L);
-        this.setDescription("Emcaminhado");
+        this.setDescription("Encaminhado");
     }
 
     public Encaminhamento(Paciente paciente) {

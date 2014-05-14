@@ -48,7 +48,7 @@ import org.hibernate.validator.constraints.NotEmpty;
             members = "[#usuario;#senha;login()]",
             namedQuery = "Select new security.Usuario()"),
     /**
-     * View de Login
+     * View de Logout
      */
     @View(name = "Logout",
             title = "Logout",

@@ -69,7 +69,7 @@ import security.Usuario;
     
     @Column(length = 7, unique = true)
     @PropertyDescriptor(mask = "9999999", displayWidth = 8)
-    @NotEmpty(message = "Informe a Matricula do Estagiário")
+    @NotEmpty(message = "Informe a Matrícula do Estagiário")
     @Editor(namedQuery = "PapelEstagiario")
     private String matricula;
     
@@ -86,7 +86,7 @@ import security.Usuario;
     
     @ManyToOne()
     @NotNull
-    @Editor(namedQuery="PapelEstagiario")
+    @Editor(namedQuery="PapelEstagiário")
     private Usuario usuario;
 
     public long getId() {
