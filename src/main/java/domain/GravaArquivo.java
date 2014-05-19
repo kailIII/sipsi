@@ -18,7 +18,7 @@ public class GravaArquivo {
         int inscricao = 0;
 
         try {
-            //Indicamos o arquivo que ser� lido
+            //Indicamos o arquivo que será lido
             FileReader fileReader = new FileReader(arq);
 
             //Criamos o objeto bufferReader que nos
@@ -61,7 +61,7 @@ public class GravaArquivo {
         return (ano);
     }
 
-    // Fun��o que devolve o n�mero da inscri��o com base no valor dos arquivos de inscri��o e ano
+    // Função que devolve o n�mero da inscrição com base no valor dos arquivos de inscri��o e ano
     public static String realizaInscricao() {
         int ano = devolveAno();
         int inscricao = devolveInscricao();
