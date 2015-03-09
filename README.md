@@ -1,4 +1,3 @@
-psicologia
-==========
+# SiPsi - Sistema de Atendimento Psicológico
 
-Sistema Psicologia (Entities Framework)
+Sistema de Psicologia (Entities Framework)
